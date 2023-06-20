@@ -1,0 +1,117 @@
+#include<iostream>
+using namespace std;
+struct nod
+{
+   int info;
+   struct nod*next;
+};
+typedef struct nod node;
+class list
+{
+   node *f;
+   public: 
+   list()
+   {
+       f=NULL;
+   }   
+   void ins_beg(int num)
+   {
+       node *p=new node;
+       p->info=num;
+       p->next=f;
+       f=p;
+   }
+   void ins_last(int num)
+   {
+       node *p=new node;
+       p->info=num;
+       node *temp=f;
+       while(temp->next!=NULL)
+       {
+           temp=temp->next;
+       }
+       temp->next=p;
+       p->next=NULL;
+   }
+   void del_beg()
+   {
+       node *temp=f;
+       if(f==NULL)
+       cout<<"\n noelement to delete \n";
+       else
+       {
+           cout<<"\nthe deleted element is is:\n"<<f->info;
+           f=f->next;
+           delete temp;
+           cout<<"\n deletion successful\n";
+       }
+       return;
+   }
+   void del_last()
+   {
+       if(f==NULL)
+       cout<<"no element to delete\n";
+       else
+       {
+           node *temp=f->next;
+           node *p=f;
+           while(temp->next!=NULL)
+           {
+               temp=temp->next;
+               p=p->next;
+           }
+           p->next=NULL;
+           delete temp;
+       }
+       return ;
+   }
+   void disp()
+   {
+       node *temp=f;
+       if(f==NULL)
+       cout <<"\n list is empty \n";
+       else
+       {
+           cout<<"\n elements in the list are:";
+           while(temp!=NULL)
+           {
+               cout<<" "<<temp->info;
+               temp=temp->next;
+           }
+       }
+   }
+};
+int main()
+{
+    int num,ch=1;
+    list ob;
+    cout<<"linear linked list\n";
+    cout<<"\n1.insert beginning\n2.insert last\n3.delete beginning\n4.delete last\n5.exit";
+    while(ch)
+    {
+        cout<<"\n enter the choice:\n";
+        cin>>ch;
+        switch(ch)
+        {
+            case 1:cout<<"\n enter the number to insert\n";
+                   cin>>num;
+                   ob.ins_beg(num);
+                   ob.disp();
+                   break;
+            case 2:cout<<"\n enter the number to insert\n";
+                   cin>>num;
+                   ob.ins_last(num);
+                   ob.disp();
+                   break;
+            case 3:ob.del_beg();
+                   ob.disp();
+                   break;
+            case 4:ob.del_last();
+                   ob.disp();
+                   break;       
+            case 5:return 0;
+            default:cout<<"invalid choice\n";
+            break;              
+        }
+    }
+}
